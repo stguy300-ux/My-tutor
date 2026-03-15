@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Tutoring Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{
+font-family:'Poppins',sans-serif;
+margin:0;
+background:linear-gradient(135deg,#6a11cb,#2575fc);
+color:white;
+}
+header{
+padding:20px;
+text-align:center;
+font-size:32px;
+font-weight:600;
+}
+.container{
+max-width:1100px;
+margin:auto;
+padding:20px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+.card{
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+border-radius:15px;
+padding:20px;
+transition:0.3s;
+}
+.card:hover{
+transform:translateY(-8px) scale(1.03);
+}
+.subject{
+font-size:20px;
+font-weight:600;
+margin-bottom:8px;
+}
+button{
+margin-top:10px;
+padding:10px 15px;
+border:none;
+border-radius:8px;
+background:#ffcc00;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+button:hover{
+transform:scale(1.1);
+background:#ffd633;
+}
+.search{
+margin-bottom:25px;
+text-align:center;
+}
+input{
+padding:10px;
+border-radius:8px;
+border:none;
+width:250px;
+}
+footer{
+text-align:center;
+padding:20px;
+opacity:0.8;
+}
+</style>
+</head>
+<body>
+
+<header>📚 Smart Tutoring Hub</header>
+
+<div class="container">
+
+<div class="search">
+<input id="search" placeholder="Search subject..." onkeyup="filterTeachers()">
+</div>
+
+<div class="grid" id="teacherGrid"></div>
+
+</div>
+
+<footer>Built for students • Find the perfect tutor</footer>
+
+<script>
+const teachers=[
+{
+name:"Nano Man",
+subject:"Physics",
+rating:"⭐ 4.8",
+time:"3:30 to 7:00",
+location:"His home"
+}
+];
+
+function loadTeachers(list){
+const grid=document.getElementById("teacherGrid");
+grid.innerHTML="";
+
+list.forEach(t=>{
+const card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+<div class="subject">${t.subject}</div>
+<div><b>${t.name}</b></div>
+<div>Rating: ${t.rating}</div>
+<div>Time: ${t.time}</div>
+<div>Location: ${t.location}</div>
+<button onclick="bookTutor('${t.name}')">Book Tutor</button>
+`;
+
+grid.appendChild(card);
+});
+}
+
+function filterTeachers(){
+const q=document.getElementById("search").value.toLowerCase();
+const filtered=teachers.filter(t=>t.subject.toLowerCase().includes(q));
+loadTeachers(filtered);
+}
+
+function bookTutor(name){
+alert("Booking request sent to "+name);
+}
+
+loadTeachers(teachers);
+</script>
+
+</body>
+</html>
